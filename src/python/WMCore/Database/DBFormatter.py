@@ -7,7 +7,7 @@ interactions.
 """
 
 
-
+from itertools import izip
 import datetime
 import time
 
@@ -122,7 +122,7 @@ class DBFormatter(WMObject):
                     cursor.close()
                     break
                 for r in rows:
-                    rapp(dict(zip(keys, r)))
+                    rapp(dict(izip(keys, r)))
             else: break
         if not cursor.closed:
             cursor.close()
