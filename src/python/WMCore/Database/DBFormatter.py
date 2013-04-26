@@ -115,19 +115,15 @@ class DBFormatter(WMObject):
         keys = [x.lower() for x in cursor.keys]
         result = []
         rapp = result.append
-        while True:
-            if not cursor.closed :
-                rows = cursor.fetchmany(size=size)
-                if not rows:
-                    cursor.close()
-                    break
-                for r in rows:
-                    rapp(dict(izip(keys, r)))
-            else: break
+        while not cursor.closed:
+            rows = cursor.fetchmany(size=size)
+            if not rows:
+                break
+            for r in rows:
+                rapp(dict(izip(keys, r)))
         if not cursor.closed:
             cursor.close()
         return result
-
 
     def getBinds(self, **kwargs):
         binds = {}
